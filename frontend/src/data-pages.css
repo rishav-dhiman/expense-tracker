@@ -1,0 +1,177 @@
+/* Data Pages Styles (Incomes & Expenses) */
+
+.data-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--white);
+  padding: 20px 30px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.page-header h2 {
+  font-size: 24px;
+  margin: 0;
+  text-shadow: none;
+  text-align: left;
+}
+
+.export-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--accent-teal);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.export-btn:hover {
+  opacity: 0.9;
+}
+
+.data-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+}
+
+.form-container, .list-container {
+  background: var(--white);
+  padding: 30px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-container h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+  border: none;
+  padding: 0;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-container input, .form-container select, .form-container textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+  background-color: var(--primary);
+  color: var(--text-dark);
+}
+
+.form-container textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--accent-blue);
+  color: var(--white);
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 10px;
+}
+
+.expense-btn {
+  background-color: var(--accent-orange);
+}
+
+.add-btn:hover {
+  opacity: 0.9;
+}
+
+.list-container {
+  height: 600px;
+  overflow-y: auto;
+}
+
+.no-data {
+  text-align: center;
+  color: var(--text-light);
+  margin-top: 50px;
+}
+
+.data-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  margin-bottom: 15px;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.data-info h4 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  color: var(--text-dark);
+}
+
+.data-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.data-meta span {
+  display: flex;
+  align-items: center;
+}
+
+.data-meta span:first-child {
+  font-weight: 700;
+  color: var(--text-dark);
+  font-size: 16px;
+}
+
+.delete-hover-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  width: 50px;
+  height: 100%;
+  position: absolute;
+  right: -50px; /* Hidden by default */
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: right 0.3s ease;
+}
+
+.data-card:hover .delete-hover-btn {
+  right: 0; /* Slide in on hover */
+}

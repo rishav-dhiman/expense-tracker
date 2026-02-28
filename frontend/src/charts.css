@@ -1,0 +1,105 @@
+/* Dashboard Specific Styling additions for index.css */
+
+.metrics-summary {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metric-item h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 10px 0 5px;
+  color: var(--text-dark);
+}
+
+.metric-label {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.metric-label.expenses { color: var(--accent-orange); }
+.metric-label.exp-rev { color: var(--accent-blue); }
+.metric-label.revenues { color: var(--accent-teal); }
+
+.shield-icon, .info-icon, .check-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--border);
+}
+
+.charts-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.bar-chart-wrapper {
+  flex: 2;
+}
+
+.pie-chart-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pie-chart-header {
+  align-self: flex-start;
+  margin-bottom: 10px;
+}
+
+.pie-center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.pie-center-text .amount {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-dark);
+}
+
+.pie-center-text .label {
+  font-size: 10px;
+  color: var(--accent-orange);
+  font-weight: 600;
+}
+
+.pie-legend {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.pie-legend div {
+  text-align: center;
+}
+
+.pie-legend h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+}
+
+.pie-legend p {
+  font-size: 10px;
+  color: var(--text-light);
+}
