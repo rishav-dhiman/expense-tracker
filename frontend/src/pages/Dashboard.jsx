@@ -108,10 +108,10 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="w-full min-h-full px-8 lg:px-12 py-10 flex flex-col mx-auto max-w-[1000px]">
+    <div className="w-full min-h-full px-5 lg:px-12 py-10 flex flex-col mx-auto max-w-[1000px]">
       
 
-      <div className="flex items-center justify-between mb-8 z-20 relative">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 z-20 relative gap-4 sm:gap-0">
         <h1 className="text-3xl font-[800] tracking-tight text-black">Summary</h1>
         
         <div className="relative">

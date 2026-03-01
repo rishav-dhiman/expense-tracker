@@ -36,7 +36,7 @@ const Transactions = () => {
   if (loading) return <div className="p-10 text-center text-gray-500">Loading Transactions...</div>;
 
   return (
-    <div className="w-full min-h-screen px-8 lg:px-12 py-10 flex flex-col mx-auto max-w-[1000px]">
+    <div className="w-full min-h-screen px-5 lg:px-12 py-10 flex flex-col mx-auto max-w-[1000px]">
       
 
       <div className="flex items-center justify-between mb-8">

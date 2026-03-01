@@ -44,7 +44,7 @@ const Investments = () => {
     const inputClasses = "w-full p-2.5 border-b border-gray-200 outline-none focus:border-black bg-transparent text-[13px] text-black font-medium transition-colors placeholder:text-gray-400";
 
     return (
-        <div className="w-full min-h-full px-8 lg:px-12 py-10 flex flex-col mx-auto max-w-[1000px]">
+        <div className="w-full min-h-full px-5 lg:px-12 py-10 flex flex-col mx-auto max-w-[1000px]">
             
 
             <div className="mb-12">

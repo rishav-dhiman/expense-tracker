@@ -44,8 +44,13 @@ const Topbar = () => {
           </nav>
         </div>
 
-        {/* Right section: Profile Trigger */}
+        {/* Right section: Profile & Mobile Menu Trigger */}
         <div className="flex items-center justify-end gap-5">
+          <div onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden flex flex-col justify-center items-center w-8 h-8 cursor-pointer gap-1.5 z-50">
+             <div className={`w-5 h-0.5 bg-black rounded-full transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
+             <div className={`w-5 h-0.5 bg-black rounded-full transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></div>
+             <div className={`w-5 h-0.5 bg-black rounded-full transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
+          </div>
           <div onClick={() => setIsMenuOpen(true)} className="w-9 h-9 relative rounded-full overflow-hidden cursor-pointer ring-2 ring-transparent hover:ring-gray-200 transition-all shadow-sm">
              <img src={`https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=111111&color=fff&bold=true`} alt="Profile" className="w-full h-full object-cover grayscale opacity-80 hover:opacity-100 transition-opacity" />
           </div>
@@ -98,6 +103,15 @@ const Topbar = () => {
                 </div>
                 <span className="font-[700] text-[14px] text-black">Dashboard</span>
             </button>
+            <div className="flex flex-col gap-2 mt-4 lg:hidden border-t border-gray-100 pt-6">
+                 <h4 className="text-[11px] font-[800] uppercase text-gray-400 tracking-wider mb-2 px-1">Menu</h4>
+                 <NavLink to="/" className={({isActive}) => `px-4 py-2.5 rounded-xl text-[14px] font-[700] transition-all ${isActive ? 'bg-black text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'}`}>Overview</NavLink>
+                 <NavLink to="/transactions" className={({isActive}) => `px-4 py-2.5 rounded-xl text-[14px] font-[700] transition-all ${isActive ? 'bg-black text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'}`}>Transactions</NavLink>
+                 <NavLink to="/incomes" className={({isActive}) => `px-4 py-2.5 rounded-xl text-[14px] font-[700] transition-all ${isActive ? 'bg-black text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'}`}>Incomes</NavLink>
+                 <NavLink to="/expenses" className={({isActive}) => `px-4 py-2.5 rounded-xl text-[14px] font-[700] transition-all ${isActive ? 'bg-black text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'}`}>Expenses</NavLink>
+                 <NavLink to="/investments" className={({isActive}) => `px-4 py-2.5 rounded-xl text-[14px] font-[700] transition-all ${isActive ? 'bg-black text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'}`}>Investments</NavLink>
+                 <NavLink to="/savings" className={({isActive}) => `px-4 py-2.5 rounded-xl text-[14px] font-[700] transition-all ${isActive ? 'bg-black text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'}`}>Savings</NavLink>
+            </div>
          </div>
 
          <div className="absolute bottom-6 left-6 right-6">
