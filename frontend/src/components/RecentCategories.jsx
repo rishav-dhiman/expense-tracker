@@ -136,22 +136,20 @@ const RecentCategories = ({ incomes = [], expenses = [], investments = [], savin
                             {sign}₹{item.amount.toLocaleString(undefined, {minimumFractionDigits: 2})}
                         </div>
                         
-                        <div 
-                           onClick={(e) => { e.stopPropagation(); setOpenMenuId(openMenuId === item._id ? null : item._id); }}
-                           className={`text-gray-400 hover:text-black transition-all cursor-pointer p-1.5 rounded-md hover:bg-gray-100 ${openMenuId === item._id ? 'text-black bg-gray-100' : 'opacity-0 group-hover:opacity-100'}`}
-                        >
-                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                        </div>
-
-                        {openMenuId === item._id && (
-                            <div className="absolute right-0 top-full mt-1 w-32 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 py-1 z-50">
-                                <button 
-                                    onClick={(e) => handleDelete(e, item._id, item.type)}
-                                    className="w-full text-left px-4 py-2 text-[13px] font-[600] text-red-600 hover:bg-red-50 flex items-center gap-2"
-                                >
-                                    <Trash2 size={14} strokeWidth={2.5} />
-                                    Delete
-                                </button>
+                        {openMenuId === item._id ? (
+                            <button 
+                                onClick={(e) => handleDelete(e, item._id, item.type)}
+                                className="px-2.5 py-1.5 rounded-lg text-red-600 bg-red-50 hover:bg-red-100 transition-colors flex items-center gap-1.5 cursor-pointer border border-red-100 shadow-sm"
+                            >
+                                <Trash2 size={14} strokeWidth={2.5} />
+                                <span className="text-[12px] font-[700]">Delete</span>
+                            </button>
+                        ) : (
+                            <div 
+                               onClick={(e) => { e.stopPropagation(); setOpenMenuId(item._id); }}
+                               className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-black transition-all cursor-pointer p-1.5 rounded-md hover:bg-gray-100"
+                            >
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                             </div>
                         )}
                     </div>
