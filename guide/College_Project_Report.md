@@ -172,7 +172,7 @@ The entry point of the React application enforces strict React Router DOM URL gu
 *Figure 1: The Login Interface, implementing React controlled form components to bind internal immutable state directly to DOM input values via `onChange` event handlers.*
 
 ### 7.2 Dashboard & Data Aggregation
-The Dashboard component utilizes the `useEffect` lifecycle hook to dispatch non-blocking `axios.get` requests, hydrating the frontend view with historical transaction array models. It utilizes array reduction methods (`reduce()`) to conditionally render aggregated mathematical totals derived dynamically from the fetched datasets, minimizing server-side computational overhead.
+The Dashboard component utilizes the `useEffect` lifecycle hook to dispatch non-blocking `axios.get` requests, hydrating the frontend view with historical transaction array models. It utilizes array reduction methods (`reduce()`) to conditionally render aggregated mathematical totals derived dynamically from the fetched datasets, minimizing server-side computational overhead. Global navigation is facilitated through the top bar, where logo-bound `onClick` event listeners leverage `react-router-dom`'s `useNavigate` for zero-refresh client-side routing back to the root application state.
 
 ![Dashboard Main View](images/dashboard.png)
 *Figure 2: The Dashboard SPA view, representing aggregated cash flows visually parsed from JSON payloads.*
@@ -184,7 +184,7 @@ The CRUD interfaces are designed for frictionless financial documentation. When 
 *Figure 3: The Incomes module using `Array.prototype.map()` to dynamically build functional JSX DOM nodes bounded by unique `_id` keys.*
 
 ### 7.4 Global Ledger & Time-Series Mapping
-A comprehensive analytical history is compiled by fetching discrete document collections (e.g., Incomes, Expenses). The dataset arrays are concatenated and dynamically sorted client-side utilizing JavaScript's native sort algorithms against BSON `createdAt` Matrix timestamps, yielding an accurate chronological feed before DOM injection.
+A comprehensive analytical history is compiled by fetching discrete document collections (e.g., Incomes, Expenses). The dataset arrays are concatenated and dynamically sorted client-side utilizing JavaScript's native sort algorithms against BSON `createdAt` Matrix timestamps, yielding an accurate chronological feed before DOM injection. Furthermore, the ledger implements interactive micro-components, such as a state-driven dropdown menu for instantaneous API deletion, leveraging react state callbacks for zero-refresh state reconciliation across all sibling DOM graphs.
 
 ![Transactions Feed](images/transactions.webp)
 *Figure 4: Global Transaction Ledger Interface performing asynchronous chronological integration.*

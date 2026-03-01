@@ -697,6 +697,7 @@ Finally, every component has a `return()` statement containing JSX. This looks l
 };
 ```
 *   **`.map()`**: This is the most powerful tool in React. Instead of writing 10 block elements, we just write the HTML structure *once* inside a `.map()` block. It iterates through the array of data that came back from MongoDB, popping the database values (`income.title`, `income.amount`) into the HTML block, and rendering as many as exist!
+*   **Interactive UI Tools**: We also use `react-router-dom`'s `useNavigate('/')` to make our topbar Logo clickable so the user can be routed home instantly. On our Transactions feed, we added an interactive dropdown menu to delete items; when the delete button is clicked, it pings the database, deletes the item, and smoothly tells the page to redraw the new totals in real-time!
 
 ---
 
