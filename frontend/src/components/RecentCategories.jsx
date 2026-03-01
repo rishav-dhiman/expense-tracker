@@ -25,7 +25,34 @@ const RecentCategories = ({ incomes = [], expenses = [], investments = [], savin
             ...investments.map(i => ({...i, type: 'investment'})),
             ...savings.map(s => ({...s, type: 'saving'}))
         ];
-        return all.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+        // Helper to convert arbitrary date strings to reliable timestamps
+        const parseDateString = (dateStr) => {
+            if (!dateStr) return 0;
+            // Native ISO
+            let d = new Date(dateStr);
+            if (!isNaN(d.getTime())) return d.getTime();
+            
+            // Handle DD/MM/YYYY
+            const parts = dateStr.split('/');
+            if (parts.length === 3) {
+                 d = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+                 if (!isNaN(d.getTime())) return d.getTime();
+            }
+            return 0;
+        };
+
+        return all.sort((a, b) => {
+            const timeA = parseDateString(a.date);
+            const timeB = parseDateString(b.date);
+            const diff = timeB - timeA;
+            
+            if (diff === 0) {
+                // Fallback to strict DB creation timestamp if user dates match
+                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+            }
+            return diff;
+        });
     }, [incomes, expenses, investments, savings]);
 
     const recent = limit ? allItems.slice(0, limit) : allItems;
