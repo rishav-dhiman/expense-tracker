@@ -139,10 +139,9 @@ const RecentCategories = ({ incomes = [], expenses = [], investments = [], savin
                         {openMenuId === item._id ? (
                             <button 
                                 onClick={(e) => handleDelete(e, item._id, item.type)}
-                                className="px-2.5 py-1.5 rounded-lg text-red-600 bg-red-50 hover:bg-red-100 transition-colors flex items-center gap-1.5 cursor-pointer border border-red-100 shadow-sm"
+                                className="p-1.5 rounded-md text-red-600 bg-red-50 hover:bg-red-100 transition-colors cursor-pointer"
                             >
-                                <Trash2 size={14} strokeWidth={2.5} />
-                                <span className="text-[12px] font-[700]">Delete</span>
+                                <Trash2 size={16} strokeWidth={2.5} />
                             </button>
                         ) : (
                             <div 
