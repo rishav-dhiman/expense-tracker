@@ -17,25 +17,26 @@ const Dashboard = () => {
   
   const navigate = useNavigate();
 
+  const fetchData = async () => {
+    try {
+      const [incRes, expRes, invRes, savRes] = await Promise.all([
+        api.get('/incomes'),
+        api.get('/expenses'),
+        api.get('/investments'),
+        api.get('/savings')
+      ]);
+      setIncomes(incRes.data.data);
+      setExpenses(expRes.data.data);
+      setInvestments(invRes.data.data);
+      setSavings(savRes.data.data);
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [incRes, expRes, invRes, savRes] = await Promise.all([
-          api.get('/incomes'),
-          api.get('/expenses'),
-          api.get('/investments'),
-          api.get('/savings')
-        ]);
-        setIncomes(incRes.data.data);
-        setExpenses(expRes.data.data);
-        setInvestments(invRes.data.data);
-        setSavings(savRes.data.data);
-      } catch (error) {
-        console.error("Error fetching dashboard data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchData();
   }, []);
 

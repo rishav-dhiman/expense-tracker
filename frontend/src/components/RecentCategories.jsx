@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
-import { ShoppingCart, Shirt, Camera, Store, Gift, Truck, HelpCircle, ArrowLeft, ArrowRight, Plus } from 'lucide-react';
+import React, { useMemo, useState, useRef, useEffect } from 'react';
+import { ShoppingCart, Shirt, Camera, Store, Gift, Truck, HelpCircle, ArrowLeft, ArrowRight, Plus, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import api from '../utils/api';
 
 const CATEGORY_ICONS = {
   Health: { icon: <Gift size={15} strokeWidth={2.5} /> },
@@ -15,8 +16,21 @@ const CATEGORY_ICONS = {
   Other: { icon: <HelpCircle size={15} strokeWidth={2.5} /> },
 };
 
-const RecentCategories = ({ incomes = [], expenses = [], investments = [], savings = [], hideHeader, limit }) => {
+const RecentCategories = ({ incomes = [], expenses = [], investments = [], savings = [], hideHeader, limit, onDeleteSuccess }) => {
     const navigate = useNavigate();
+    const [openMenuId, setOpenMenuId] = useState(null);
+    const menuRef = useRef(null);
+
+    // Close menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setOpenMenuId(null);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     const allItems = useMemo(() => {
         const all = [
@@ -55,6 +69,19 @@ const RecentCategories = ({ incomes = [], expenses = [], investments = [], savin
         });
     }, [incomes, expenses, investments, savings]);
 
+    const handleDelete = async (e, id, type) => {
+        e.stopPropagation();
+        try {
+            await api.delete(`/${type}s/${id}`);
+            setOpenMenuId(null);
+            if (onDeleteSuccess) {
+                onDeleteSuccess();
+            }
+        } catch (error) {
+            console.error('Error deleting transaction:', error);
+        }
+    };
+
     const recent = limit ? allItems.slice(0, limit) : allItems;
 
     if(recent.length === 0) return <p className="text-gray-400 text-sm mb-4">No transactions yet.</p>
@@ -87,7 +114,7 @@ const RecentCategories = ({ incomes = [], expenses = [], investments = [], savin
                 }
 
                 return (
-                <div key={item._id} className="flex items-center justify-between py-4 border-b border-gray-100 group cursor-pointer hover:bg-gray-50/50 transition-colors mx-[-16px] px-[16px]">
+                <div key={item._id} className="flex items-center justify-between py-4 border-b border-gray-100 group cursor-default hover:bg-gray-50/50 transition-colors mx-[-16px] px-[16px]">
                     
                     <div className="flex items-center gap-6 w-1/3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={iconColor} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
@@ -104,13 +131,29 @@ const RecentCategories = ({ incomes = [], expenses = [], investments = [], savin
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-end w-1/3 gap-4">
+                    <div className="flex items-center justify-end w-1/3 gap-4 relative" ref={openMenuId === item._id ? menuRef : null}>
                         <div className={`font-[700] text-[15px] ${textColor}`}>
                             {sign}₹{item.amount.toLocaleString(undefined, {minimumFractionDigits: 2})}
                         </div>
-                        <div className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-black transition-all">
+                        
+                        <div 
+                           onClick={(e) => { e.stopPropagation(); setOpenMenuId(openMenuId === item._id ? null : item._id); }}
+                           className={`text-gray-400 hover:text-black transition-all cursor-pointer p-1.5 rounded-md hover:bg-gray-100 ${openMenuId === item._id ? 'text-black bg-gray-100' : 'opacity-0 group-hover:opacity-100'}`}
+                        >
                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                         </div>
+
+                        {openMenuId === item._id && (
+                            <div className="absolute right-0 top-full mt-1 w-32 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 py-1 z-50">
+                                <button 
+                                    onClick={(e) => handleDelete(e, item._id, item.type)}
+                                    className="w-full text-left px-4 py-2 text-[13px] font-[600] text-red-600 hover:bg-red-50 flex items-center gap-2"
+                                >
+                                    <Trash2 size={14} strokeWidth={2.5} />
+                                    Delete
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             )})}
