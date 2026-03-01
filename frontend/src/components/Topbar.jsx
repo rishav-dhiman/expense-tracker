@@ -29,7 +29,7 @@ const Topbar = () => {
         
         {/* Left section: Logo & Navigation */}
         <div className="flex items-center gap-10">
-          <div className="flex items-center gap-2 cursor-pointer pt-1">
+          <div onClick={() => navigate('/')} className="flex items-center gap-2 cursor-pointer pt-1 transition-transform hover:scale-105 active:scale-95">
             <div className="w-5 h-5 shrink-0 bg-black rounded-full" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 50%, 0 100%)' }}></div>
             <span className="text-xl font-[800] tracking-tighter text-black">Budget</span>
           </div>
