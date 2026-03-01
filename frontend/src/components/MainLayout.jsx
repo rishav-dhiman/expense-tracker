@@ -1,15 +1,14 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 
 const MainLayout = () => {
   return (
-    <div className="app-container">
-      <Sidebar />
-      <div className="main-content">
+    <div className="flex w-full h-screen bg-white overflow-hidden relative">
+      {/* Foreground Content */}
+      <div className="relative z-10 w-full h-full flex flex-col max-w-[1400px] mx-auto">
         <Topbar />
-        <div className="page-content">
+        <div className="flex-1 overflow-y-auto w-full custom-scrollbar">
             <Outlet />
         </div>
       </div>

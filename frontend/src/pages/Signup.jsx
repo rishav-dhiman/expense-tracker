@@ -21,43 +21,46 @@ const Signup = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <h2>Create Account</h2>
-        <p>Start tracking your expenses today.</p>
-        {error && <div className="error-message">{error}</div>}
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Full Name</label>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+      <div className="bg-white p-8 md:p-10 rounded-2xl shadow-lg w-full max-w-[450px]">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2 text-center">Create Account</h2>
+        <p className="text-gray-500 text-center mb-8">Start tracking your expenses today.</p>
+        {error && <div className="bg-red-50 text-red-500 p-3 rounded-xl mb-6 text-sm text-center border border-red-100">{error}</div>}
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-700">Full Name</label>
             <input 
               type="text" 
               value={name} 
               onChange={(e) => setName(e.target.value)} 
               required 
+              className="w-full p-3.5 border border-gray-200 rounded-xl outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-gray-50 transition-all text-gray-800"
             />
           </div>
-          <div className="form-group">
-            <label>Email Address</label>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-700">Email Address</label>
             <input 
               type="email" 
               value={email} 
               onChange={(e) => setEmail(e.target.value)} 
               required 
+              className="w-full p-3.5 border border-gray-200 rounded-xl outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-gray-50 transition-all text-gray-800"
             />
           </div>
-          <div className="form-group">
-            <label>Password</label>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-700">Password</label>
             <input 
               type="password" 
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
               required 
               minLength="6"
+              className="w-full p-3.5 border border-gray-200 rounded-xl outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-gray-50 transition-all text-gray-800"
             />
           </div>
-          <button type="submit" className="btn btn-primary">Sign Up</button>
+          <button type="submit" className="w-full p-3.5 bg-gray-900 text-white rounded-xl font-medium mt-2 hover:bg-gray-800 transition-colors shadow-md">Sign Up</button>
         </form>
-        <p className="auth-link">Already have an account? <Link to="/login">Login</Link></p>
+        <p className="text-center mt-6 text-sm text-gray-600">Already have an account? <Link to="/login" className="text-blue-500 font-semibold hover:underline">Login</Link></p>
       </div>
     </div>
   );

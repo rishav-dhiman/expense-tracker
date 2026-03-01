@@ -6,12 +6,13 @@ import MainLayout from './components/MainLayout';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+import Transactions from './pages/Transactions';
 import Incomes from './pages/Incomes';
 import Expenses from './pages/Expenses';
+import Investments from './pages/Investments';
+import Savings from './pages/Savings';
+import Account from './pages/Account';
 import './index.css';
-import './charts.css';
-import './categories.css';
-import './data-pages.css';
 
 function App() {
   return (
@@ -24,8 +25,12 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route element={<MainLayout />}>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/transactions" element={<Transactions />} />
               <Route path="/incomes" element={<Incomes />} />
               <Route path="/expenses" element={<Expenses />} />
+              <Route path="/investments" element={<Investments />} />
+              <Route path="/savings" element={<Savings />} />
+              <Route path="/account" element={<Account />} />
             </Route>
           </Route>
           
