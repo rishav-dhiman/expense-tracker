@@ -210,7 +210,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <RecentCategories incomes={filteredIncomes} expenses={filteredExpenses} investments={filteredInvestments} savings={filteredSavings} hideHeader={true} limit={4} />
+      <RecentCategories incomes={filteredIncomes} expenses={filteredExpenses} investments={filteredInvestments} savings={filteredSavings} hideHeader={true} limit={4} onDeleteSuccess={fetchData} />
 
     </div>
   );

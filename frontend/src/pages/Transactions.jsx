@@ -11,25 +11,26 @@ const Transactions = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const fetchData = async () => {
+    try {
+      const [incRes, expRes, invRes, savRes] = await Promise.all([
+        api.get('/incomes'),
+        api.get('/expenses'),
+        api.get('/investments'),
+        api.get('/savings')
+      ]);
+      setIncomes(incRes.data.data);
+      setExpenses(expRes.data.data);
+      setInvestments(invRes.data.data);
+      setSavings(savRes.data.data);
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [incRes, expRes, invRes, savRes] = await Promise.all([
-          api.get('/incomes'),
-          api.get('/expenses'),
-          api.get('/investments'),
-          api.get('/savings')
-        ]);
-        setIncomes(incRes.data.data);
-        setExpenses(expRes.data.data);
-        setInvestments(invRes.data.data);
-        setSavings(savRes.data.data);
-      } catch (error) {
-        console.error("Error fetching transactions:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchData();
   }, []);
 
@@ -47,7 +48,7 @@ const Transactions = () => {
       </div>
 
       <div className="w-full">
-         <RecentCategories incomes={incomes} expenses={expenses} investments={investments} savings={savings} hideHeader={true} limit={null} />
+         <RecentCategories incomes={incomes} expenses={expenses} investments={investments} savings={savings} hideHeader={true} limit={null} onDeleteSuccess={fetchData} />
       </div>
 
     </div>
