@@ -1,2 +1,22 @@
-﻿믯඿渊摯彥潭畤敬⽳਍攮癮਍攮癮⨮氮捯污਍楤瑳യ搊獩⵴獳⽲਍畢汩⽤਍潣敶慲敧യ⸊卄卟潴敲਍桔浵獢搮ൢ渊浰搭扥杵氮杯പ礊牡⵮敤畢⹧潬⩧਍慹湲攭牲牯氮杯പ瀊灮⵭敤畢⹧潬⩧਍਍‣摅瑩牯搠物捥潴楲獥愠摮映汩獥਍椮敤ൡ⸊獶潣敤਍⸪畳൯⨊渮癴⩳਍⸪橮灳潲൪⨊献湬਍⸪睳ി朊甀椀搀攀⼀ഀ
-਍ഀഊഊ�
+﻿node_modules/
+.env
+.env.*.local
+dist/
+dist-ssr/
+build/
+coverage/
+.DS_Store
+Thumbs.db
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
