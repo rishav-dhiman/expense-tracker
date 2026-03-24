@@ -35,37 +35,66 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-      <div className="bg-white p-8 md:p-10 rounded-2xl shadow-lg w-full max-w-[450px]">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2 text-center">Welcome Back</h2>
-        <p className="text-gray-500 text-center mb-8">Login to manage your budget.</p>
-        {error && <div className="bg-red-50 text-red-500 p-3 rounded-xl mb-6 text-sm text-center border border-red-100">{error}</div>}
-        <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">Email Address</label>
+    <div className="min-h-screen bg-gray-50 font-sans text-gray-900 relative flex flex-col items-center justify-center p-4">
+      
+      {/* Top Left Logo (Absolute) */}
+      <div className="absolute top-8 left-8 flex items-center gap-2">
+        <div className="w-5 h-5 shrink-0 bg-black rounded-full" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 50%, 0 100%)' }}></div>
+        <span className="text-xl font-[800] tracking-tighter text-black">Budget.</span>
+      </div>
+    
+      {/* Center Card */}
+      <div className="w-full max-w-[420px] bg-white border border-gray-200 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 md:p-10 flex flex-col items-center">
+        <h1 className="text-[28px] font-[700] tracking-[-0.03em] mb-1.5 text-black">Welcome to Budget</h1>
+        <p className="text-[13px] text-gray-500 font-medium mb-8 text-center">Expense management designed for individuals</p>
+    
+        {error && <div className="w-full bg-red-50 text-red-500 p-2.5 rounded-md mb-4 text-[13px] text-center border border-red-100">{error}</div>}
+    
+        <form onSubmit={handleSubmit} noValidate className="w-full flex flex-col gap-4">
+          <div className="flex flex-col w-full text-left">
+            <label className="text-[13px] font-[600] text-gray-800 mb-1.5 flex justify-between">Email
+               {fieldErrors.email && <span className="text-red-500 font-normal">{fieldErrors.email}</span>}
+            </label>
             <input 
               type="email" 
               value={email} 
               onChange={(e) => setEmail(e.target.value)} 
               required 
-              className={`w-full p-3.5 border ${fieldErrors.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-200 focus:ring-blue-500 focus:border-blue-500'} rounded-xl outline-none focus:ring-1 bg-gray-50 transition-all text-gray-800`}
+              placeholder="Type your email"
+              className={`w-full px-3 py-2.5 text-[14px] bg-white border ${fieldErrors.email ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-200'} rounded-md focus:outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-400 transition-all font-medium placeholder-gray-400`}
             />
-            {fieldErrors.email && <span className="text-red-500 text-xs">{fieldErrors.email}</span>}
           </div>
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">Password</label>
+    
+          <div className="flex flex-col w-full text-left">
+            <label className="text-[13px] font-[600] text-gray-800 mb-1.5 flex justify-between">Password
+               {fieldErrors.password && <span className="text-red-500 font-normal">{fieldErrors.password}</span>}
+            </label>
             <input 
               type="password" 
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
               required 
-              className={`w-full p-3.5 border ${fieldErrors.password ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-200 focus:ring-blue-500 focus:border-blue-500'} rounded-xl outline-none focus:ring-1 bg-gray-50 transition-all text-gray-800`}
+              placeholder="Type your password"
+              className={`w-full px-3 py-2.5 text-[14px] bg-white border ${fieldErrors.password ? 'border-red-400 ring-1 ring-red-400' : 'border-gray-200'} rounded-md focus:outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-400 transition-all font-medium placeholder-gray-400`}
             />
-            {fieldErrors.password && <span className="text-red-500 text-xs">{fieldErrors.password}</span>}
           </div>
-          <button type="submit" className="w-full p-3.5 bg-gray-900 text-white rounded-xl font-medium mt-2 hover:bg-gray-800 transition-colors shadow-md">Login</button>
+    
+          <button type="submit" className="w-full py-2.5 bg-[#1F1F1F] text-white rounded-md text-[14px] font-[600] tracking-wide mt-2 hover:bg-black transition-colors shadow-sm">
+            Continue
+          </button>
         </form>
-        <p className="text-center mt-6 text-sm text-gray-600">Don't have an account? <Link to="/signup" className="text-blue-500 font-semibold hover:underline">Sign Up</Link></p>
+        
+        <p className="text-center mt-6 text-[13px] text-gray-500 font-medium">
+          Don't have an account? <Link to="/signup" className="text-gray-900 font-[700] hover:underline">Sign up</Link>
+        </p>
+    
+        {/* Absolute Bottom Terms */}
+        <div className="absolute bottom-8 w-full text-center px-4">
+          <p className="text-[12px] text-gray-500 leading-relaxed font-medium">
+            By clicking "Continue"<br/>
+            you agree to our <a href="#" className="underline hover:text-gray-800">Terms of Use</a> and <a href="#" className="underline hover:text-gray-800">Privacy policy</a>
+          </p>
+        </div>
       </div>
     </div>
   );
