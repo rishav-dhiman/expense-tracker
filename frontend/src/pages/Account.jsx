@@ -29,7 +29,7 @@ const Account = () => {
             await loadUser(); // Refresh user context
             setProfileSuccess('Profile updated successfully!');
         } catch (error) {
-            setProfileError(error.response?.data?.error || 'Failed to update profile');
+            setProfileError(error.response?.data?.message || 'Failed to update profile');
         } finally {
             setProfileLoading(false);
         }
@@ -55,7 +55,7 @@ const Account = () => {
             setPassSuccess('Password updated successfully!');
             setPasswords({ currentPassword: '', newPassword: '', confirmPassword: '' });
         } catch (error) {
-            setPassError(error.response?.data?.error || 'Failed to update password');
+            setPassError(error.response?.data?.message || 'Failed to update password');
         } finally {
             setPassLoading(false);
         }

@@ -6,6 +6,8 @@ import api from '../utils/api';
 const Incomes = () => {
     const [incomes, setIncomes] = useState([]);
     const [formData, setFormData] = useState({ title: '', amount: '', category: 'Salary', date: '', description: '' });
+    const [error, setError] = useState('');
+    const [fieldErrors, setFieldErrors] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,9 +28,26 @@ const Incomes = () => {
         try {
             await api.post('/incomes', { ...formData, amount: Number(formData.amount) });
             setFormData({ title: '', amount: '', category: 'Salary', date: '', description: '' });
+            setError('');
+            setFieldErrors({});
             fetchIncomes();
         } catch (error) {
             console.error("Error adding income", error);
+            setError(error.response?.data?.message || 'An error occurred while adding.');
+            if (error.response?.data?.error?.message) {
+                try {
+                    const parsedIssues = JSON.parse(error.response.data.error.message);
+                    const errorsMap = {};
+                    parsedIssues.forEach(issue => {
+                        if (issue.path && issue.path[0]) errorsMap[issue.path[0]] = issue.message;
+                    });
+                    setFieldErrors(errorsMap);
+                } catch (e) {
+                    setFieldErrors({});
+                }
+            } else {
+                setFieldErrors({});
+            }
         }
     };
 
@@ -55,18 +74,38 @@ const Incomes = () => {
                 
                 <div className="w-full lg:min-w-[320px] lg:max-w-[350px]">
                     <h3 className="text-[14px] font-[700] mb-6 text-black uppercase tracking-wider">Add New Income</h3>
-                    <form onSubmit={handleAdd} className="flex flex-col gap-5">
-                        <input type="text" placeholder="Income Title" required value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} className={inputClasses} />
-                        <input type="number" placeholder="Amount" required value={formData.amount} onChange={e => setFormData({...formData, amount: e.target.value})} className={inputClasses} />
-                        <input type="date" required value={formData.date} onChange={e => setFormData({...formData, date: e.target.value})} className={inputClasses} />
-                        <select required value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className={`${inputClasses} appearance-none`}>
-                            <option value="Salary">Salary</option>
-                            <option value="Freelancing">Freelancing</option>
-                            <option value="Investments">Investments</option>
-                            <option value="Bank">Bank Interest</option>
-                            <option value="Other">Other</option>
-                        </select>
-                        <textarea placeholder="Add a Reference" required value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className={`${inputClasses} resize-y min-h-[60px]`}></textarea>
+                    {error && <div className="bg-red-50 text-red-500 p-3 rounded-xl mb-4 text-[13px] text-center border border-red-100">{error}</div>}
+                    <form onSubmit={handleAdd} noValidate className="flex flex-col gap-5">
+                        <div className="flex flex-col gap-1">
+                            <input type="text" placeholder="Income Title" required value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} className={`${inputClasses} ${fieldErrors.title ? 'border-red-500' : ''}`} />
+                            {fieldErrors.title && <span className="text-red-500 text-[11px] ml-1">{fieldErrors.title}</span>}
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                            <input type="number" placeholder="Amount" required value={formData.amount} onChange={e => setFormData({...formData, amount: e.target.value})} className={`${inputClasses} ${fieldErrors.amount ? 'border-red-500' : ''}`} />
+                            {fieldErrors.amount && <span className="text-red-500 text-[11px] ml-1">{fieldErrors.amount}</span>}
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                            <input type="date" required value={formData.date} onChange={e => setFormData({...formData, date: e.target.value})} className={`${inputClasses} ${fieldErrors.date ? 'border-red-500' : ''}`} />
+                            {fieldErrors.date && <span className="text-red-500 text-[11px] ml-1">{fieldErrors.date}</span>}
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                            <select required value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className={`${inputClasses} ${fieldErrors.category ? 'border-red-500' : ''} appearance-none`}>
+                                <option value="Salary">Salary</option>
+                                <option value="Freelancing">Freelancing</option>
+                                <option value="Investments">Investments</option>
+                                <option value="Bank">Bank Interest</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            {fieldErrors.category && <span className="text-red-500 text-[11px] ml-1">{fieldErrors.category}</span>}
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                            <textarea placeholder="Add a Reference" required value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className={`${inputClasses} ${fieldErrors.description ? 'border-red-500' : ''} resize-y min-h-[60px]`}></textarea>
+                            {fieldErrors.description && <span className="text-red-500 text-[11px] ml-1">{fieldErrors.description}</span>}
+                        </div>
                         
                         <button type="submit" className="flex items-center justify-center gap-2 w-full p-2.5 mt-4 bg-black text-white text-[13px] rounded-lg font-bold transition-colors hover:bg-gray-800">
                             <Plus size={16} strokeWidth={3} /> Submit Income
